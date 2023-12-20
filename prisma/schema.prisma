@@ -14,4 +14,6 @@ model User {
   passwd    String   @db.VarChar(127)
   createdAt DateTime @default(now()) @db.Timestamp(0)
   updatedAt DateTime @default(now()) @db.Timestamp(0)
+
+  @@map("users")
 }

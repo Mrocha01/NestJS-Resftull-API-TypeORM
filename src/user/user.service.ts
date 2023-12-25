@@ -17,6 +17,10 @@ export class UserService {
   }
 
   async listOne(id: number) {
-    await this.prisma.user.findUnique({ where: { id } });
+    return this.prisma.user.findUnique({ where: { id } });
+  }
+
+  async deleteOne(id: number) {
+    return this.prisma.user.delete({ where: { id } });
   }
 }

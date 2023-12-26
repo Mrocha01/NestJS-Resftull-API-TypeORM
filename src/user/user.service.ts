@@ -7,8 +7,12 @@ import { UpdatePatchUserDTO } from './dto/update-patch-user.dto';
 export class UserService {
   constructor(private prisma: PrismaService) {}
 
-  async userExistsById(id) {
-    if (!(await this.listOne(id))) {
+  async userExistsById(id: number) {
+    if (
+      !(await this.prisma.user.count({
+        where: { id },
+      }))
+    ) {
       throw new NotFoundException(`Usuario ${id} não encontrado!`);
     }
   }
@@ -24,11 +28,11 @@ export class UserService {
   }
 
   async listOne(id: number) {
-    const userId = await this.prisma.user.findUnique({ where: { id } });
+    await this.prisma.user.findUnique({ where: { id } });
 
-    await this.userExistsById(userId);
+    await this.userExistsById(id);
 
-    return userId;
+    return id;
   }
 
   async update(id: number, data: UpdatePatchUserDTO) {

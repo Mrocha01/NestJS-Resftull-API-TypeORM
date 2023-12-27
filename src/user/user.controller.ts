@@ -3,8 +3,6 @@ import {
   Controller,
   Delete,
   Get,
-  Param,
-  ParseIntPipe,
   Patch,
   Post,
   Put,
@@ -14,6 +12,7 @@ import { CreateUserDTO } from './dto/create-user.dto';
 import { UpdatePatchUserDTO } from './dto/update-patch-user.dto';
 import { UpdatePutUserDTO } from './dto/update-put-user.dto';
 import { UserService } from './user.service';
+import { ParamId } from 'src/decorators/param-id-decorator';
 
 @Controller('users')
 export class UserController {
@@ -30,28 +29,26 @@ export class UserController {
   }
 
   @Get(':id')
-  async readOne(@Param('id', ParseIntPipe) id: number) {
+  async readOne(@ParamId() id: number) {
+    console.log('Received id:', id, typeof id); // Adicione esta linha para verificar o valor recebido
     return this.userService.listOne(id);
   }
 
   @Put(':id')
-  async updateOne(
-    @Param('id', ParseIntPipe) id: number,
-    @Body() data: UpdatePutUserDTO,
-  ) {
+  async updateOne(@ParamId() id: number, @Body() data: UpdatePutUserDTO) {
     return this.userService.update(id, data);
   }
 
   @Patch(':id')
   async updateOnePartial(
-    @Param('id', ParseIntPipe) id: number,
+    @ParamId() id: number,
     @Body() data: UpdatePatchUserDTO,
   ) {
     return this.userService.update(id, data);
   }
 
   @Delete(':id')
-  async deleteOne(@Param('id', ParseIntPipe) id: number) {
+  async deleteOne(@ParamId() id: number) {
     return this.userService.deleteOne(id);
   }
 }

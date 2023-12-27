@@ -30,7 +30,6 @@ export class UserController {
 
   @Get(':id')
   async readOne(@ParamId() id: number) {
-    console.log('Received id:', id, typeof id); // Adicione esta linha para verificar o valor recebido
     return this.userService.listOne(id);
   }
 

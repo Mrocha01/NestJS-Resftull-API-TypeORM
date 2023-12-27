@@ -28,11 +28,9 @@ export class UserService {
   }
 
   async listOne(id: number) {
-    await this.prisma.user.findUnique({ where: { id } });
-
     await this.userExistsById(id);
 
-    return id;
+    return this.prisma.user.findUnique({ where: { id } });
   }
 
   async update(id: number, data: UpdatePatchUserDTO) {

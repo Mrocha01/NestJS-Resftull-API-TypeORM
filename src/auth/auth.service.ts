@@ -86,6 +86,8 @@ export class AuthService {
       throw new UnauthorizedException('E-mail está incorreto');
     }
 
+    // TO DO: enviar o e-mail de redefinição de senha.
+
     return true;
   }
 

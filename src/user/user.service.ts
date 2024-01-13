@@ -1,38 +1,54 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateUserDTO } from './dto/create-user.dto';
 import { UpdatePatchUserDTO } from './dto/update-patch-user.dto';
 import * as bcrypt from 'bcrypt';
+import { User } from './entity/user.entity';
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class UserService {
-  constructor() {}
+  constructor(
+    @InjectRepository(User)
+    private usersRepository: Repository<User>,
+  ) {}
 
   async userExistsById(id: number) {
-    if (
-      !(await this.prisma.user.count({
-        where: { id },
-      }))
-    ) {
+    if (!(await this.usersRepository.exists({ where: { id } }))) {
       throw new NotFoundException(`Usuario ${id} não encontrado!`);
     }
   }
 
   async create(data: CreateUserDTO) {
+    if (await this.usersRepository.exists({ where: { email: data.email } })) {
+      throw new BadRequestException(
+        `Email ${data.email} já está cadastrado, tente novamente!`,
+      );
+    }
+
+    if (data.birthAt) {
+      data.birthAt = new Date(data.birthAt);
+    }
+
     data.passwd = await bcrypt.hash(data.passwd, await bcrypt.genSalt());
 
-    return this.prisma.user.create({
-      data,
-    });
+    const newUser = await this.usersRepository.create(data);
+
+    return this.usersRepository.save(newUser);
   }
 
   async list() {
-    return this.prisma.user.findMany();
+    return this.usersRepository.find();
   }
 
   async listOne(id: number) {
     await this.userExistsById(id);
 
-    return this.prisma.user.findUnique({ where: { id } });
+    return this.usersRepository.findOne({ where: { id } });
   }
 
   async update(id: number, data: UpdatePatchUserDTO) {
@@ -42,15 +58,14 @@ export class UserService {
       data.passwd = await bcrypt.hash(data.passwd, await bcrypt.genSalt());
     }
 
-    return this.prisma.user.update({
-      data,
-      where: { id },
-    });
+    await this.usersRepository.update(id, data);
+
+    return this.listOne(id);
   }
 
   async deleteOne(id: number) {
     await this.userExistsById(id);
 
-    return this.prisma.user.delete({ where: { id } });
+    return this.usersRepository.delete(id);
   }
 }

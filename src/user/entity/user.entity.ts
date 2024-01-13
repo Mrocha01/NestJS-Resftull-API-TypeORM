@@ -6,7 +6,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity()
+@Entity({ name: 'users' })
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
@@ -24,9 +24,9 @@ export class User {
     type: 'date',
     nullable: true,
   })
-  birthAt: string;
+  birthAt: Date;
 
-  @Column({ enum: [1, 2] })
+  @Column({ default: 1 })
   role: number;
 
   @CreateDateColumn()

@@ -1,4 +1,5 @@
 import {
+  IsDateString,
   IsEmail,
   IsOptional,
   IsString,
@@ -24,4 +25,8 @@ export class CreateUserDTO {
   @IsOptional()
   @Validate(isEnum, [Role])
   role: Role;
+
+  @IsOptional()
+  @IsDateString()
+  birthAt?: Date;
 }

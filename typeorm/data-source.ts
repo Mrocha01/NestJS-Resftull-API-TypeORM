@@ -1,5 +1,5 @@
-import * as dotenv from 'dotenv';
-import { DataSource } from 'typeorm';
+const dotenv = require('dotenv');
+const { DataSource } = require('typeorm');
 
 dotenv.config();
 
@@ -12,4 +12,4 @@ const dataSource = new DataSource({
   database: process.env.DB_DATABASE,
 });
 
-export default dataSource;
+module.exports = dataSource;

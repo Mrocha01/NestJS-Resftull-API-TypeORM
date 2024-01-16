@@ -37,8 +37,8 @@ class Migrate1705278578724 {
           },
           {
             name: 'role',
-            type: 'varchar',
-            default: '1',
+            type: 'integer',
+            default: 1,
           },
           {
             name: 'createdAt',

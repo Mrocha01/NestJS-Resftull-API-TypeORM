@@ -9,7 +9,7 @@ import {
 @Entity({ name: 'users' })
 export class User {
   @PrimaryGeneratedColumn()
-  id: number;
+  id?: number;
 
   @Column({ length: 63 })
   name: string;
@@ -24,14 +24,14 @@ export class User {
     type: 'date',
     nullable: true,
   })
-  birthAt: Date;
+  birthAt?: Date;
 
   @Column({ default: 1 })
   role: number;
 
   @CreateDateColumn()
-  createdAt: string;
+  createdAt?: Date;
 
   @UpdateDateColumn()
-  updatedAt: string;
+  updatedAt?: Date;
 }

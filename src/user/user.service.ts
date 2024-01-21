@@ -66,6 +66,8 @@ export class UserService {
   async deleteOne(id: number) {
     await this.userExistsById(id);
 
-    return this.usersRepository.delete(id);
+    await this.usersRepository.delete(id);
+
+    return { message: 'Usuario deletado com sucesso!' };
   }
 }

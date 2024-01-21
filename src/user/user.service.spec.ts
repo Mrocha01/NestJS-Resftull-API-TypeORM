@@ -58,5 +58,9 @@ describe('UserService', () => {
     expect(result).toEqual(userEntityList[0]);
   });
 
-  test('Method Delete', async () => {});
+  test('Method Delete', async () => {
+    const result = await userService.deleteOne(1);
+
+    expect(result).toEqual({ message: 'Usuario deletado com sucesso!' });
+  });
 });

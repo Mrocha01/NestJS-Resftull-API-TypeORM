@@ -22,12 +22,12 @@ import { dataSourceOptions } from 'typeorm/data-source';
         host: 'smtp.ethereal.email',
         port: 587,
         auth: {
-          user: 'marcos.jaskolski@ethereal.email',
-          pass: 'RZE3KcrHB38x4gY9DP',
+          user: 'dean.orn@ethereal.email',
+          pass: 'u28xnjxh9uawyN9Nyz',
         },
       },
       defaults: {
-        from: '"Mateus R" <marcos.jaskolski@ethereal.email>',
+        from: '"Mateus R" <dean.orn@ethereal.email>',
       },
       template: {
         dir: __dirname + '/templates',

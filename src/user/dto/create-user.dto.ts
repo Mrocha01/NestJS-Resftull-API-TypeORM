@@ -24,7 +24,7 @@ export class CreateUserDTO {
 
   @IsOptional()
   @Validate(isEnum, [Role])
-  role: Role;
+  role?: Role;
 
   @IsOptional()
   @IsDateString()

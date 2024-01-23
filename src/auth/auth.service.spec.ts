@@ -1,4 +1,5 @@
 import { acessToken } from '../testing/acess-token.mock';
+import { jwtPayloadJSON } from '../testing/jwt-payload.mock';
 import { jwtServiceMock } from '../testing/jwt-service.mock';
 import { mailerServiceMock } from '../testing/mailer-service.mock';
 import { userEntityList } from '../testing/user-entity-list.mock';
@@ -32,7 +33,19 @@ describe('AuthService', () => {
     test('createToken method', async () => {
       const result = await authService.createToken(userEntityList[0]);
 
-      expect(result).toEqual({ acessToken: { acessToken } });
+      expect(result).toEqual({ acessToken });
+    });
+
+    test('checkToken method', async () => {
+      const result = await authService.checkToken(acessToken);
+
+      expect(result).toEqual(jwtPayloadJSON);
+    });
+
+    test('isValidToken method', async () => {
+      const result = await authService.isValidToken(acessToken);
+
+      expect(result).toEqual(true);
     });
   });
 

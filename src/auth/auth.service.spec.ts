@@ -1,7 +1,9 @@
 import { acessToken } from '../testing/acess-token.mock';
+import { authRegisterDTO } from '../testing/auth-register-dto.mock';
 import { jwtPayloadJSON } from '../testing/jwt-payload.mock';
 import { jwtServiceMock } from '../testing/jwt-service.mock';
 import { mailerServiceMock } from '../testing/mailer-service.mock';
+import { resetToken } from '../testing/reset-token.mock';
 import { userEntityList } from '../testing/user-entity-list.mock';
 import { usersRepositoryMock } from '../testing/user-repository.mock';
 import { userServiceMock } from '../testing/user-service.mock';
@@ -49,5 +51,31 @@ describe('AuthService', () => {
     });
   });
 
-  describe('Autenticação', () => {});
+  describe('Autenticação', () => {
+    test('login method', async () => {
+      const result = await authService.login('Rafael@hcode.com', 'Rafael@123');
+
+      expect(result).toEqual({ acessToken });
+    });
+
+    test('forget method', async () => {
+      const result = await authService.forget('Rafael@hcode.com');
+
+      expect(result).toEqual(true);
+    });
+
+    test('reset method', async () => {
+      const result = await authService.reset('654321', resetToken);
+
+      console.log(result);
+
+      expect(result).toEqual({ acessToken });
+    });
+
+    test('register method', async () => {
+      const result = await authService.register(authRegisterDTO);
+
+      expect(result).toEqual({ acessToken });
+    });
+  });
 });

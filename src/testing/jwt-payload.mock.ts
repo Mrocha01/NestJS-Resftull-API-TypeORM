@@ -8,5 +8,3 @@ export const jwtPayLoad = {
   iss: 'login',
   sub: '1',
 };
-
-export const jwtPayloadJSON = JSON.stringify(jwtPayLoad, null, 2);

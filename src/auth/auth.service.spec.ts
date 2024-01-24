@@ -1,6 +1,6 @@
 import { acessToken } from '../testing/acess-token.mock';
 import { authRegisterDTO } from '../testing/auth-register-dto.mock';
-import { jwtPayloadJSON } from '../testing/jwt-payload.mock';
+import { jwtPayLoad } from '../testing/jwt-payload.mock';
 import { jwtServiceMock } from '../testing/jwt-service.mock';
 import { mailerServiceMock } from '../testing/mailer-service.mock';
 import { resetToken } from '../testing/reset-token.mock';
@@ -41,7 +41,7 @@ describe('AuthService', () => {
     test('checkToken method', async () => {
       const result = await authService.checkToken(acessToken);
 
-      expect(result).toEqual(jwtPayloadJSON);
+      expect(result).toEqual(jwtPayLoad);
     });
 
     test('isValidToken method', async () => {
@@ -66,8 +66,6 @@ describe('AuthService', () => {
 
     test('reset method', async () => {
       const result = await authService.reset('654321', resetToken);
-
-      console.log(result);
 
       expect(result).toEqual({ acessToken });
     });

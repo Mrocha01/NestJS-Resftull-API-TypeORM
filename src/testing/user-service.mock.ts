@@ -9,6 +9,8 @@ export const userServiceMock = {
     list: jest.fn().mockResolvedValue(userEntityList),
     listOne: jest.fn().mockResolvedValue(userEntityList[0]),
     update: jest.fn().mockResolvedValue(userEntityList[0]),
-    deleteOne: jest.fn().mockResolvedValue(true),
+    deleteOne: jest
+      .fn()
+      .mockResolvedValue({ message: 'Usuario deletado com sucesso!' }),
   },
 };

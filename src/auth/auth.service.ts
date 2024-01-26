@@ -113,7 +113,7 @@ export class AuthService {
       context: { name: user.name, token },
     });
 
-    return true;
+    return { success: true };
   }
 
   async reset(password: string, token: string) {

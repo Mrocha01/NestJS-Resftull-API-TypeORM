@@ -38,3 +38,5 @@ teste.txt
 .env
 
 storage/photos/**
+
+/src/testing/photo.png

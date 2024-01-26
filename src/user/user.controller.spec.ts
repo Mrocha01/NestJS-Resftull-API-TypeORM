@@ -32,7 +32,15 @@ describe('userController', () => {
     expect(userController).toBeDefined();
   });
 
-  describe('Teste dos Guards', () => {});
+  describe('Teste dos Guards', () => {
+    test('Se os guards estão aplicados', () => {
+      const guards = Reflect.getMetadata('__guards__', UserController);
+
+      expect(guards.length).toEqual(2);
+      expect(new guards[0]()).toBeInstanceOf(AuthGuard);
+      expect(new guards[1]()).toBeInstanceOf(RoleGuard);
+    });
+  });
 
   describe('Teste de Rotas', () => {
     test('Create', async () => {

@@ -106,9 +106,11 @@ export class AuthService {
       },
     );
 
+    const toEmail = user.email;
+
     await this.mailer.sendMail({
       subject: 'Recuperação de senha',
-      to: 'joão@hcode.com.br',
+      to: toEmail,
       template: 'forget',
       context: { name: user.name, token },
     });

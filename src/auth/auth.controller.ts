@@ -19,6 +19,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { AuthGuard } from '../guards/auth.guard';
 import { User } from '../decorators/user.decorator';
 import { FileService } from '../file/file.service';
+import { User as UserEntity } from '../user/entity/user.entity';
 
 @Controller('auth')
 export class AuthController {
@@ -39,7 +40,7 @@ export class AuthController {
 
   @Post('forget')
   async forget(@Body() { email }: AuthForgetDTO) {
-    this.authService.forget(email);
+    return this.authService.forget(email);
   }
 
   @Post('reset')
@@ -49,15 +50,15 @@ export class AuthController {
 
   @UseGuards(AuthGuard)
   @Post('me')
-  async me(@User('email') user) {
-    return { user };
+  async me(@User('email') user: UserEntity) {
+    return user;
   }
 
   @UseInterceptors(FileInterceptor('file'))
   @UseGuards(AuthGuard)
   @Post('photo')
   async uploadPhoto(
-    @User() user,
+    @User() user: UserEntity,
     @UploadedFile(
       new ParseFilePipe({
         validators: [
@@ -75,6 +76,6 @@ export class AuthController {
       throw new BadRequestException(error);
     }
 
-    return { sucess: true };
+    return photo;
   }
 }

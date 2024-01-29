@@ -13,7 +13,9 @@ import { dataSourceOptions } from '../typeorm/data-source';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({
+      envFilePath: process.env.ENV === 'test' ? '.env.test' : '.env',
+    }),
     UserModule,
     AuthModule,
     ThrottlerModule.forRoot([{ ttl: 60, limit: 100 }]),

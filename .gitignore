@@ -36,6 +36,7 @@ lerna-debug.log*
 
 teste.txt
 .env
+.env.test
 
 storage/photos/**
 
